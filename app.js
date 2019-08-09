@@ -31,8 +31,16 @@ app.get('/service/public', function (req, res) {
 res.json({message: 'public'});
 });
 
-app.get('/service/secured', keycloak.protect('realm:user'), function (req, res) {
+app.get('/service/secured', keycloak.protect(), function (req, res) {
 res.json({message: 'secured'});
+});
+
+app.get('/service/secured/user', keycloak.protect('realm:user'), function (req, res) {
+    res.json({message: 'secured-user'});
+});
+
+app.get('/service/secured/admin', keycloak.protect('realm:admin'), function (req, res) {
+    res.json({message: 'secured-admin'});
 });
 
 app.use('*', function (req, res) {
